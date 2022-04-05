@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    td{
+        height: 50px;
+        border-collapse: collapse;
+        width: 50px;
+    }
+</style>
+<body>
+<script>
+    let play1 = 'X';
+    let play2 = 'O';
+    let turn = play1;
+    function createBoard(row,col){
+        let table = '';
+        table += '<table border="1px" style="border-collapse: collapse">';
+        for(let i = 0; i < row; i++){
+            table += '<tr>';
+            for(let j = 0; j < col; j++ ){
+                table += `<td onclick="Fill(${i},${j})" id='${i}-${j}' style="text-align: center"></td>`
+            }
+            table += '</tr>';
+        }
+        table += '</table>'
+        document.write(table);
+    }
+
+    function Fill(x,y){
+        let a = document.getElementById(`${x}-${y}`);
+        if(a.innerHTML == ''){
+            if(turn == play1){
+                a.innerHTML = play1;
+                turn = play2;
+            }else {
+                a.innerHTML = play2;
+                turn = play1;
+            }
+
+        }
+        checkWin(x,y);
+    }
+    function checkWin(x,y){
+        let i = 1;
+        let count = 0;
+        let check = document.getElementById(`${x}-${y}`).innerHTML;
+        while(check == document.getElementById(`${x}-${y-i}`).innerHTML){
+            count ++;
+            i++;
+        }
+        i = 1;
+        while(check == document.getElementById(`${x}-${y+i}`).innerHTML){
+            count ++;
+            i++;
+        }
+        i =1;
+        if(count == 4){
+            alert('Win');
+        }else {
+            count =0;
+        }
+        while(check == document.getElementById(`${x-i}-${y}`).innerHTML){
+            count ++;
+            i++;
+        }
+        i = 1;
+        while(check == document.getElementById(`${x+i}-${y}`).innerHTML){
+            count ++;
+            i++;
+        }
+        i = 1;
+        if(count == 4){
+            alert('Win');
+        }else {
+            count = 0;
+        }
+        while(check == document.getElementById(`${x-i}-${y-i}`).innerHTML){
+            count ++;
+            i++;
+        }
+        i = 1;
+        while(check == document.getElementById(`${x+i}-${y+i}`).innerHTML){
+            count ++;
+            i++;
+        }
+        i=1;
+        if(count == 4){
+            alert('Win');
+        }else {
+            count = 0;
+        }
+        i = 1;
+        while(check == document.getElementById(`${x-i}-${y+i}`).innerHTML){
+            count ++;
+            i++;
+        }
+        i = 1;
+        while(check == document.getElementById(`${x+i}-${y-i}`).innerHTML){
+            count ++;
+            i++;
+        }
+        if(count == 4){
+            alert('Win');
+        }
+
+    }
+    createBoard(20,20);
+</script>
+</body>
+</html>
